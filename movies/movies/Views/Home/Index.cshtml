@@ -1,124 +1,22 @@
-﻿@{
-    ViewData["Title"] = "Let's Movie";
-}
+﻿
 
+<head>
+    <link rel="stylesheet" href="~/css/movie.css" asp-append-version="true" />
+</head>
 
-<style>
-    body {
-        background-color: #141414;
-        color: whitesmoke;
-    }
-
-    h1 {
-        font-size: 18px;
-        margin-top:15px;
-    }
-
-    .movieClass {
-        margin-top: 50px;
-    }
-
-    img {
-        height: 250px;
-        margin:auto;
-    }
-
-    #simg {
-        height: 350px;
-    }
-
-    .book {
-        width: 250px;
-        height: 350px;
-        display: inline-block;
-        margin: 10px;
-        padding: 10px;
-        position: relative;
-        overflow: hidden;
-        text-align:center;
-    }
-
-    .modal-content {
-        background-color: #181818;
-        color: whitesmoke;
-    }
-
-
-    .modal-body {
-        margin: auto;
-        text-align: center;
-    }
-
-    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-        color: #181818;
-        background-color: whitesmoke;
-    }
-
-    .nav-link:hover {
-        color: pink;
-    }
-
-    .nav-tabs {
-        margin: auto;
-    }
-
-    .nav-link {
-        color: whitesmoke;
-    }
-
-    .modal-title {
-        margin: auto;
-        margin-right: -20px;
-    }
-
-    #profile {
-        text-align: center;
-    }
-
-    .underline {
-        background-image: linear-gradient(90deg,#845422, #d7c797);
-        background-position: bottom;
-        background-size: 100% 50%;
-        background-repeat: no-repeat;
-        width: 14rem;
-    }
-    .time{
-        text-align:center;
-        position: fixed;
-        margin-top:-20px;
-        margin-left:60%;
-        z-index:-500;
-        color:#d7c797;
-    }
-.tracking-in-contract-bck {
-	-webkit-animation: tracking-in-contract-bck 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1.5s both;
-	        animation: tracking-in-contract-bck 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1.5s both;
-}
-.fade-in-left {
-	-webkit-animation: fade-in-left 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: fade-in-left 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-}
-.fade-in-right {
-	-webkit-animation: fade-in-right 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: fade-in-right 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-}
-.rotate-in-2-bck-cw {
-	-webkit-animation: rotate-in-2-bck-cw 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: rotate-in-2-bck-cw 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-</style>
-
-    <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-     <img class="rotate-in-2-bck-cw" src="@Href("~/images/movie3.gif")" style="width:100%;height:auto;" alt="">
-
-  </div>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <img class="rotate-in-2-bck-cw" src="@Href("~/images/movie3.gif")" style="width:100%;height:auto;" alt="">
+    </div>
 </div>
+
 <div id="app" class="container">
 
-    <h6 class="time tracking-in-contract-bck">今日電影時刻：
-        <br />{{nowDate}}</h6>
+    <h6 class="time tracking-in-contract-bck">
+        今日電影時刻：
+        <br />
+        {{nowDate}}
+    </h6>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
