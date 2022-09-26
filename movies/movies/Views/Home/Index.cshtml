@@ -15,7 +15,7 @@
     }
 
     .movieClass {
-        margin-top: 100px;
+        margin-top: 50px;
     }
 
     img {
@@ -85,8 +85,10 @@
     .time{
         text-align:center;
         position: fixed;
-        margin-top:-70px;
-        margin-left:70%;
+        margin-top:-20px;
+        margin-left:60%;
+        z-index:-500;
+        color:#d7c797;
     }
 .tracking-in-contract-bck {
 	-webkit-animation: tracking-in-contract-bck 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1.5s both;
@@ -100,12 +102,23 @@
 	-webkit-animation: fade-in-right 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 	        animation: fade-in-right 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
+.rotate-in-2-bck-cw {
+	-webkit-animation: rotate-in-2-bck-cw 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: rotate-in-2-bck-cw 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
 </style>
 
+    <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+     <img class="rotate-in-2-bck-cw" src="@Href("~/images/movie3.gif")" style="width:100%;height:auto;" alt="">
+
+  </div>
+</div>
 <div id="app" class="container">
+
     <h6 class="time tracking-in-contract-bck">今日電影時刻：
         <br />{{nowDate}}</h6>
-
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
