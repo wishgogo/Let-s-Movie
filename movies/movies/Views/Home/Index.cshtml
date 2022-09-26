@@ -1,0 +1,669 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<style>
+    body {
+        background-color: #141414;
+        color: whitesmoke;
+    }
+
+    h1 {
+        font-size: 18px;
+        margin-top:15px;
+    }
+
+    .movieClass {
+        margin-top: 100px;
+    }
+
+    img {
+        height: 250px;
+        margin:auto;
+    }
+
+    #simg {
+        height: 350px;
+    }
+
+    .book {
+        width: 250px;
+        height: 350px;
+        display: inline-block;
+        margin: 10px;
+        padding: 10px;
+        position: relative;
+        overflow: hidden;
+        text-align:center;
+    }
+
+    .modal-content {
+        background-color: #181818;
+        color: whitesmoke;
+    }
+
+
+    .modal-body {
+        margin: auto;
+        text-align: center;
+    }
+
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #181818;
+        background-color: whitesmoke;
+    }
+
+    .nav-link:hover {
+        color: pink;
+    }
+
+    .nav-tabs {
+        margin: auto;
+    }
+
+    .nav-link {
+        color: whitesmoke;
+    }
+
+    .modal-title {
+        margin: auto;
+        margin-right: -20px;
+    }
+
+    #profile {
+        text-align: center;
+    }
+
+    .underline {
+        background-image: linear-gradient(90deg,#845422, #d7c797);
+        background-position: bottom;
+        background-size: 100% 50%;
+        background-repeat: no-repeat;
+        width: 14rem;
+    }
+    .time{
+        text-align:center;
+        position: fixed;
+        margin-top:-70px;
+        margin-left:70%;
+    }
+.tracking-in-contract-bck {
+	-webkit-animation: tracking-in-contract-bck 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1.5s both;
+	        animation: tracking-in-contract-bck 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) 1.5s both;
+}
+.fade-in-left {
+	-webkit-animation: fade-in-left 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-left 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.fade-in-right {
+	-webkit-animation: fade-in-right 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-right 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+</style>
+
+<div id="app" class="container">
+    <h6 class="time tracking-in-contract-bck">今日電影時刻：
+        <br />{{nowDate}}</h6>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">{{selectMovies.中文名稱}}</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <a :href="selectMovies.url">
+                        <img id="simg" :src="selectMovies.圖片網址">
+                    </a>
+                    <h4 style="padding-top:1rem;">{{selectMovies.中文名稱}}</h4>
+                    <h5>{{selectMovies.英文名稱}}</h5>
+                    <h5>上映日期：{{selectMovies.上映日期}}</h5>
+                    <h5>電影片長：{{selectMovies.片長}}</h5>
+
+
+                </div>
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">電影院</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">電影簡介</button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="d-flex align-items-start">
+                            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">全部</button>
+                                <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">北</button>
+                                <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">中</button>
+                                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">南</button>
+                                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings1" type="button" role="tab" aria-controls="v-pills-settings1" aria-selected="false">其他</button>
+                            </div>
+                            <div class="tab-content" id="v-pills-tabContent">
+                                <br />
+                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <div v-for="item in selectMovies.時刻表" class="row">
+
+                                        <div v-for="item in item.地區">
+                                            <h5 style="text-align:center">{{item.名稱}}</h5>
+
+                                            <div v-for="item in item.電影院">
+                                                <h6 class="underline" style="margin:auto;text-align:center"> {{item.名稱}}</h6>
+                                                <br>
+                                                <span class="row" style="text-align:center;margin:auto">
+                                                    <span v-for="item in item.場次" class="col-4">
+
+                                                        {{item.時間}}
+                                                    </span>
+                                                </span>
+                                                <br />
+                                            </div>
+                                            <br />
+
+                                            <hr style="width:70%;margin:auto">
+                                            <br />
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                    <div v-for="item in selectMovies.時刻表" class="row">
+
+                                        <div v-for="item in item.地區" v-if="item.名稱=='台北市'||item.名稱=='台北二輪'||item.名稱=='基隆'||item.名稱=='新北市'||item.名稱=='桃園'||item.名稱=='新竹'||item.名稱=='宜蘭'">
+                                            <h5 style="text-align:center">{{item.名稱}}</h5>
+
+                                            <div v-for="item in item.電影院">
+                                                <h6 class="underline" style="margin:auto;text-align:center"> {{item.名稱}}</h6>
+                                                <br />
+
+                                                <span class="row" style="text-align:center;margin:auto">
+                                                    <span v-for="item in item.場次" class="col-4">
+
+                                                        {{item.時間}}
+                                                    </span>
+                                                </span>
+                                                <br />
+                                            </div>
+                                            <br />
+
+                                            <hr style="width:70%;margin:auto">
+                                            <br />
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                    <div v-for="item in selectMovies.時刻表" class="row">
+
+                                        <div v-for="item in item.地區" v-if="item.名稱=='苗栗'||item.名稱=='台中'||item.名稱=='彰化'||item.名稱=='南投'||item.名稱=='雲林'">
+                                            <h5 style="text-align:center">{{item.名稱}}</h5>
+
+                                            <div v-for="item in item.電影院">
+                                                <h6 class="underline" style="margin:auto;text-align:center"> {{item.名稱}}</h6>
+                                                <br />
+                                                <span class="row" style="text-align:center;margin:auto">
+                                                    <span v-for="item in item.場次" class="col-4">
+
+                                                        {{item.時間}}
+                                                    </span>
+                                                </span>
+                                                <br />
+                                            </div>
+                                            <br />
+
+                                            <hr style="width:70%;margin:auto">
+                                            <br />
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                    <div v-for="item in selectMovies.時刻表" class="row">
+
+                                        <div v-for="item in item.地區" v-if="item.名稱=='嘉義'||item.名稱=='台南'||item.名稱=='高雄'||item.名稱=='屏東'">
+                                            <h5 style="text-align:center">{{item.名稱}}</h5>
+
+                                            <div v-for="item in item.電影院">
+                                                <h6 class="underline" style="margin:auto;text-align:center"> {{item.名稱}}</h6>
+                                                <br />
+
+                                                <span class="row" style="text-align:center;margin:auto">
+                                                    <span v-for="item in item.場次" class="col-4">
+
+                                                        {{item.時間}}
+                                                    </span>
+                                                </span>
+                                                <br />
+                                            </div>
+                                            <br />
+
+                                            <hr style="width:70%;margin:auto">
+                                            <br />
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-settings1" role="tabpanel" aria-labelledby="v-pills-settings1-tab">
+                                    <div v-for="item in selectMovies.時刻表" class="row">
+
+                                        <div v-for="item in item.地區" v-if="item.名稱=='花蓮'||item.名稱=='台東'||item.名稱=='金門'||item.名稱=='澎湖'">
+                                            <h5 style="text-align:center">{{item.名稱}}</h5>
+
+                                            <div v-for="item in item.電影院">
+                                                <h6 class="underline" style="margin:auto;text-align:center"> {{item.名稱}}</h6>
+                                                <br />
+
+                                                <span class="row" style="text-align:center;margin:auto">
+                                                    <span v-for="item in item.場次" class="col-4">
+
+                                                        {{item.時間}}
+                                                    </span>
+                                                </span>
+                                                <br />
+                                            </div>
+                                            <br />
+
+                                            <hr style="width:70%;margin:auto">
+                                            <br />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <br />
+                        <h5 style="background-color:#181818">{{selectMovies.電影簡介}}</h5>
+                        <br />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="movies">
+        <h1 class="movieClass fade-in-left">動畫/冒險/奇幻</h1>
+        <div class=" responsive fade-in-left">
+            <div v-for="item in animationOrFantasyOrAdventures" class="book">
+                <div v-on:click="selectMovie((item))" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a :href="item.url">
+                        <img :src="item.圖片網址">
+                    </a>
+                    <h1>{{item.中文名稱}}</h1>
+                    <h6>{{item.分級}}</h6>
+                </div>
+            </div>
+        </div>
+        <h1 class="movieClass fade-in-right">劇情</h1>
+        <div class=" responsive fade-in-right">
+            <div v-for="item in plotOrRecords" class="book">
+                <div v-on:click="selectMovie((item))" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                    <a :href="item.url">
+                        <img :src="item.圖片網址">
+                    </a>
+                    <h1>{{item.中文名稱}}</h1>
+                    <h6>{{item.分級}}</h6>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="movieClass fade-in-left">恐怖/懸疑/驚悚</h1>
+        <div class=" responsive fade-in-left">
+            <div v-for="item in fearOrSuspense" class="book">
+                <div v-on:click="selectMovie((item))" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a :href="item.url">
+                        <img :src="item.圖片網址">
+                    </a>
+                    <h1>{{item.中文名稱}}</h1>
+                    <h6>{{item.分級}}</h6>
+                </div>
+            </div>
+        </div>
+        <h1 class="movieClass fade-in-right">喜劇/愛情</h1>
+        <div class=" responsive fade-in-right">
+            <div v-for="item in funnyOrLoves" class="book">
+                <div v-on:click="selectMovie((item))" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                    <a :href="item.url">
+                        <img :src="item.圖片網址">
+                    </a>
+                    <h1>{{item.中文名稱}}</h1>
+                    <h6>{{item.分級}}</h6>
+                </div>
+
+            </div>
+        </div>
+        <h1 class="movieClass fade-in-left">動作/科幻/犯罪</h1>
+        <div class=" responsive fade-in-left">
+            <div v-for="item in actionOrscienceFictionOrCrimes" class="book">
+                <div v-on:click="selectMovie((item))" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                    <a :href="item.url">
+                        <img :src="item.圖片網址">
+                    </a>
+                    <h1>{{item.中文名稱}}</h1>
+                    <h6>{{item.分級}}</h6>
+                </div>
+
+            </div>
+        </div>
+        <h1 class="movieClass fade-in-right">音樂/歌舞/歷史/傳記/紀錄片</h1>
+        <div class=" responsive fade-in-right">
+            <div v-for="item in others" class="book">
+                <div v-on:click="selectMovie((item))" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                    <a :href="item.url">
+                        <img :src="item.圖片網址">
+                    </a>
+                    <h1>{{item.中文名稱}}</h1>
+                    <h6>{{item.分級}}</h6>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                isActive: '全部',
+                showMessage: true,
+                citys: ['全部', '台北市', '台北二輪', '新北市', '桃園', '新竹', '苗栗', '台中', '彰化', '南投', '雲林', '嘉義', '台南', '高雄', '屏東', '基隆', '宜蘭', '花蓮', '台東', '金門', '澎湖'],
+                selectCitys: '全部',
+                selectMovies: [],
+                animationOrFantasyOrAdventures: [],
+                plotOrRecords: [],
+                fearOrSuspense: [],
+                funnyOrLoves: [],
+                actionOrscienceFictionOrCrimes: [],
+                others: [],
+                nowDate: null,
+                nowTimer: "",
+            },
+            //        template: `  <div>
+            //<h1>地區</h1>
+            //<div class="slider cityresponsive">
+            //    <div v-for="item in citys">
+            //        <div class="city" v-if="showMessage" v-bind:class="{ active:item==isActive}" v-on:click="selectCity((item))">{{item}}</div>
+            //    </div>
+            //</div>
+            //<div class="movies">
+            //    <h1 class="movieClass">動畫/冒險/奇幻</h1>
+            //    <div class="slider responsive">
+            //        <div v-for="item in animationOrFantasyOrAdventures" class="book">
+            //            <div v-on:click="selectMovie((item.中文名稱))">
+            //                <a :href="item.url">
+            //                    <img :src="item.圖片網址">
+            //                </a>
+            //                <h1>{{item.中文名稱}}</h1>
+            //            </div>
+            //        </div>
+            //    </div>
+            //    <h1 class="movieClass">劇情</h1>
+            //    <div class="slider responsive">
+            //        <div v-for="item in plotOrRecords" class="book">
+            //            <div v-on:click="selectMovie((item.中文名稱))">
+
+            //                <a :href="item.url">
+            //                    <img :src="item.圖片網址">
+            //                </a>
+            //                <h1>{{item.中文名稱}}</h1>
+            //            </div>
+            //        </div>
+            //    </div>
+
+            //    <h1 class="movieClass">恐怖/懸疑/驚悚</h1>
+            //    <div class="slider responsive">
+            //        <div v-for="item in fearOrSuspense" class="book">
+            //            <div v-on:click="selectMovie((item.中文名稱))">
+            //                <a :href="item.url">
+            //                    <img :src="item.圖片網址">
+            //                </a>
+            //                <h1>{{item.中文名稱}}</h1>
+            //            </div>
+            //        </div>
+            //    </div>
+            //    <h1 class="movieClass">喜劇/愛情</h1>
+            //    <div class="slider responsive">
+            //        <div v-for="item in funnyOrLoves" class="book">
+            //            <div v-on:click="selectMovie((item.中文名稱))">
+
+            //                <a :href="item.url">
+            //                    <img :src="item.圖片網址">
+            //                </a>
+            //                <h1>{{item.中文名稱}}</h1>
+            //                <h1>{{item.分級}}</h1>
+            //            </div>
+
+            //        </div>
+            //    </div>
+            //    <h1 class="movieClass">動作/科幻/犯罪</h1>
+            //    <div class="slider responsive">
+            //        <div v-for="item in actionOrscienceFictionOrCrimes" class="book">
+            //            <div v-on:click="selectMovie((item.中文名稱))">
+
+            //                <a :href="item.url">
+            //                    <img :src="item.圖片網址">
+            //                </a>
+            //                <h1>{{item.中文名稱}}</h1>
+            //            </div>
+
+            //        </div>
+            //    </div>
+            //    <h1 class="movieClass">音樂/歌舞/歷史/傳記/紀錄片</h1>
+            //    <div class="slider responsive">
+            //        <div v-for="item in others" class="book">
+            //            <div v-on:click="selectMovie((item.中文名稱))">
+
+            //                <a :href="item.url">
+            //                    <img :src="item.圖片網址">
+            //                </a>
+            //                <h1>{{item.中文名稱}}</h1>
+            //            </div>
+
+            //        </div>
+            //    </div>
+            //    </div>
+            //</div>
+
+            //                        `,
+            mounted() {
+
+                // then() 的傳回值是 Promise 物件
+                // jQuery
+                // $.getJSON('bookData.json').then(function(res){})
+                // $.getJSON('bookData.json').then(res =>  console.log(res))
+                //$.getJSON('bookData.json').then(res => this.books = res)
+                // Axios.js
+                //axios.get('movie.json').then(res => console.log(res))
+                //axios.get('bookData.json').then(res =>  console.log(res.data))
+
+                //axios.get('movie.json')
+                //    .then(function(res) {
+                //        console.log(res)
+                //        this.books=res.data.Data
+                //    });
+
+                // Fetch API
+                // fetch('bookData.json').then(res =>  console.log(res))
+                // fetch('bookData.json').then(res =>  console.log(res.json()))
+                //    fetch('bookData.json').then(res =>  res.json()).then(res => this.books = res)
+                this.showMovies();
+            },
+            created() {
+                this.nowTimer = setInterval(this.gettime, 1000);
+            },
+            async beforeUpdate() {
+
+                $(function() {
+                    $(".cityresponsive").slick({
+                        dots: false,
+                        infinite: false,
+                        speed: 300,
+                        slidesToShow: 5,
+                        slidesToScroll: 5,
+
+                    });
+                    $(".responsive").slick({
+                        dots: false,
+                        infinite: false,
+                        speed: 300,
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
+                        responsive: [
+                            {
+                                breakpoint: 1024,
+                                settings: {
+                                    slidesToShow: 3,
+                                    slidesToScroll: 3,
+                                    infinite: true,
+                                    dots: false
+                                }
+                            },
+                            {
+                                breakpoint: 600,
+                                settings: {
+                                    slidesToShow: 2,
+                                    slidesToScroll: 2
+                                }
+                            },
+                            {
+                                breakpoint: 480,
+                                settings: {
+                                    slidesToShow: 1,
+                                    slidesToScroll: 1
+                                }
+                            }
+                        ]
+                    });
+                });
+            },
+            methods: {
+                gettime() {
+                    this.nowDate = new Date().toLocaleString();
+                },
+                showMovies: function() {
+
+                    var taipei = new RegExp("台北");
+                    var animation = new RegExp("動畫");
+                    var adventure = new RegExp("冒險");
+                    var plot = new RegExp("劇情");
+                    var fear = new RegExp("恐怖");
+                    var suspense = new RegExp("懸疑/驚悚");
+                    var record = new RegExp("紀錄片");
+                    var funny = new RegExp("喜劇");
+                    var love = new RegExp("愛情");
+                    var action = new RegExp("動作");
+                    var scienceFiction = new RegExp("科幻");
+                    var music = new RegExp("音樂/歌舞");
+                    var history = new RegExp("歷史/傳記");
+                    var crime = new RegExp("犯罪");
+                    var fantasy = new RegExp("奇幻");
+
+                    axios.get('movie.json')
+                        .then((res) => {
+
+                            if (this.selectCitys == "全部") {
+
+                                for (var i = 0; i <= res.data.Data.length; i++) {
+                                    if (animation.test(res.data.Data[i].劇情分類) || adventure.test(res.data.Data[i].劇情分類) || fantasy.test(res.data.Data[i].劇情分類)) {
+                                        this.animationOrFantasyOrAdventures.push(res.data.Data[i]);
+                                    }
+                                    if (plot.test(res.data.Data[i].劇情分類)) {
+                                        this.plotOrRecords.push(res.data.Data[i]);
+                                    }
+                                    if (fear.test(res.data.Data[i].劇情分類) || suspense.test(res.data.Data[i].劇情分類)) {
+                                        this.fearOrSuspense.push(res.data.Data[i]);
+                                    }
+                                    if (funny.test(res.data.Data[i].劇情分類) || love.test(res.data.Data[i].劇情分類)) {
+                                        this.funnyOrLoves.push(res.data.Data[i]);
+                                    }
+                                    if (action.test(res.data.Data[i].劇情分類) || scienceFiction.test(res.data.Data[i].劇情分類) || crime.test(res.data.Data[i].劇情分類)) {
+                                        this.actionOrscienceFictionOrCrimes.push(res.data.Data[i]);
+                                    }
+                                    if (record.test(res.data.Data[i].劇情分類) || music.test(res.data.Data[i].劇情分類) || history.test(res.data.Data[i].劇情分類)) {
+                                        this.others.push(res.data.Data[i]);
+                                    }
+
+                                }
+                            } else {
+                                for (var i = 0; i <= res.data.Data.length; i++) {
+                                    //alert(i)
+                                    for (var j = 0; j < res.data.Data[i].時刻表.length; j++) {
+                                        for (var k = 0; k < res.data.Data[i].時刻表[j].地區.length; k++) {
+
+                                            if (res.data.Data[i].時刻表[j].地區[k].名稱 == this.selectCitys && res.data.Data[i].時刻表[j].地區[k].電影院.length > 0) {
+                                                if (animation.test(res.data.Data[i].劇情分類) || adventure.test(res.data.Data[i].劇情分類) || fantasy.test(res.data.Data[i].劇情分類)) {
+                                                    this.animationOrFantasyOrAdventures.push(res.data.Data[i]);
+                                                }
+                                                if (plot.test(res.data.Data[i].劇情分類)) {
+                                                    this.plotOrRecords.push(res.data.Data[i]);
+                                                }
+                                                if (fear.test(res.data.Data[i].劇情分類) || suspense.test(res.data.Data[i].劇情分類)) {
+                                                    this.fearOrSuspense.push(res.data.Data[i]);
+                                                }
+                                                if (funny.test(res.data.Data[i].劇情分類) || love.test(res.data.Data[i].劇情分類)) {
+                                                    this.funnyOrLoves.push(res.data.Data[i]);
+                                                }
+                                                if (action.test(res.data.Data[i].劇情分類) || scienceFiction.test(res.data.Data[i].劇情分類) || crime.test(res.data.Data[i].劇情分類)) {
+                                                    this.actionOrscienceFictionOrCrimes.push(res.data.Data[i]);
+                                                }
+                                                if (record.test(res.data.Data[i].劇情分類) || music.test(res.data.Data[i].劇情分類) || history.test(res.data.Data[i].劇情分類)) {
+                                                    this.others.push(res.data.Data[i]);
+
+                                                }
+                                            }
+
+                                        }
+
+                                    }
+
+                                }
+                            }
+                        });
+
+                },
+                selectCity: function(c) {
+                    this.selectCitys = c;
+                    this.isActive = c
+
+                    alert(this.selectCitys)
+                    this.animationOrFantasyOrAdventures.splice(0);
+                    this.plotOrRecords.splice(0);
+                    this.fearOrSuspense.splice(0);
+                    this.funnyOrLoves.splice(0);
+                    this.actionOrscienceFictionOrCrimes.splice(0);
+                    this.others.splice(0);
+                    //$(".movies").empty();
+                    this.showMovies();
+                },
+                selectMovie: function(m) {
+                    this.selectMovies = m;
+
+
+                },
+            },
+        })
+
+        $(document).ready(function() {
+
+
+        });
+    </script>
+    }
