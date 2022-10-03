@@ -195,7 +195,7 @@
             var crime = new RegExp("犯罪");
             var fantasy = new RegExp("奇幻");
 
-            axios.get('movie.json')
+            axios.get('20221004toCC.json')
                 .then((res) => {
 
                     if (this.selectCitys == "全部") {
