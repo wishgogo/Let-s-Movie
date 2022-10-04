@@ -11,6 +11,8 @@
 </div>
 
 <div id="app" class="container">
+               
+ 請輸入片名：<input type="text" v-model="search" v-on:keyup="searchNow()" />
 
     <h6 class="time tracking-in-contract-bck">
         今日電影時刻：
@@ -203,7 +205,7 @@
             </div>
         </div>
     </div>
-    <div class="movies">
+    <div class="movies" v-if="!search">
         <h1 class="movieClass fade-in-left">動畫/冒險/奇幻</h1>
         <div class=" responsive fade-in-left">
             <div v-for="item in animationOrFantasyOrAdventures" class="book">
@@ -285,6 +287,18 @@
             </div>
         </div>
     </div>
+        <div class="movies" v-showe="search">
+             <div class="fade-in-left">
+            <div v-for="item in isSearch " class="book">
+                <div v-on:click="selectMovie((item))" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a :href="item.url">
+                        <img :src="item.圖片網址">
+                    </a>
+                    <h1>{{item.中文名稱}}</h1>
+                    <h6>{{item.分級}}</h6>
+                </div>
+            </div>
+        </div>
 </div>
 
 @section Scripts{

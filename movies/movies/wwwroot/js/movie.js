@@ -14,6 +14,9 @@
         others: [],
         nowDate: null,
         nowTimer: "",
+        search: '',
+        searchAll: [],
+        isSearch: [],
     },
     //        template: `  <div>
     //<h1>地區</h1>
@@ -179,7 +182,6 @@
         },
         showMovies: function () {
 
-            var taipei = new RegExp("台北");
             var animation = new RegExp("動畫");
             var adventure = new RegExp("冒險");
             var plot = new RegExp("劇情");
@@ -198,6 +200,9 @@
             axios.get('20221004toCCV3.json')
                 .then((res) => {
 
+                    for (var i = 0; i <= res.data.Data.length; i++) {
+                        this.searchAll.push(res.data.Data[i]);
+                    }
                     if (this.selectCitys == "全部") {
 
                         for (var i = 0; i <= res.data.Data.length; i++) {
@@ -277,10 +282,22 @@
 
 
         },
+        searchNow: function (m) {
+            this.isSearch.splice(0);
+
+            var search = new RegExp(this.search);
+
+           
+            if (this.search.length > 0) {
+                for (var i = 0; i <= this.searchAll.length; i++) {
+                    if (search.test(this.searchAll[i].中文名稱)) {
+                        this.isSearch.push(this.searchAll[i]);
+                    }
+
+                }
+            } 
+
+        },
     },
 })
 
-$(document).ready(function () {
-
-
-});
