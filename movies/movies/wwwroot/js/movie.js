@@ -18,114 +18,10 @@
         searchAll: [],
         isSearch: [],
     },
-    //        template: `  <div>
-    //<h1>地區</h1>
-    //<div class="slider cityresponsive">
-    //    <div v-for="item in citys">
-    //        <div class="city" v-if="showMessage" v-bind:class="{ active:item==isActive}" v-on:click="selectCity((item))">{{item}}</div>
-    //    </div>
-    //</div>
-    //<div class="movies">
-    //    <h1 class="movieClass">動畫/冒險/奇幻</h1>
-    //    <div class="slider responsive">
-    //        <div v-for="item in animationOrFantasyOrAdventures" class="book">
-    //            <div v-on:click="selectMovie((item.中文名稱))">
-    //                <a :href="item.url">
-    //                    <img :src="item.圖片網址">
-    //                </a>
-    //                <h1>{{item.中文名稱}}</h1>
-    //            </div>
-    //        </div>
-    //    </div>
-    //    <h1 class="movieClass">劇情</h1>
-    //    <div class="slider responsive">
-    //        <div v-for="item in plotOrRecords" class="book">
-    //            <div v-on:click="selectMovie((item.中文名稱))">
-
-    //                <a :href="item.url">
-    //                    <img :src="item.圖片網址">
-    //                </a>
-    //                <h1>{{item.中文名稱}}</h1>
-    //            </div>
-    //        </div>
-    //    </div>
-
-    //    <h1 class="movieClass">恐怖/懸疑/驚悚</h1>
-    //    <div class="slider responsive">
-    //        <div v-for="item in fearOrSuspense" class="book">
-    //            <div v-on:click="selectMovie((item.中文名稱))">
-    //                <a :href="item.url">
-    //                    <img :src="item.圖片網址">
-    //                </a>
-    //                <h1>{{item.中文名稱}}</h1>
-    //            </div>
-    //        </div>
-    //    </div>
-    //    <h1 class="movieClass">喜劇/愛情</h1>
-    //    <div class="slider responsive">
-    //        <div v-for="item in funnyOrLoves" class="book">
-    //            <div v-on:click="selectMovie((item.中文名稱))">
-
-    //                <a :href="item.url">
-    //                    <img :src="item.圖片網址">
-    //                </a>
-    //                <h1>{{item.中文名稱}}</h1>
-    //                <h1>{{item.分級}}</h1>
-    //            </div>
-
-    //        </div>
-    //    </div>
-    //    <h1 class="movieClass">動作/科幻/犯罪</h1>
-    //    <div class="slider responsive">
-    //        <div v-for="item in actionOrscienceFictionOrCrimes" class="book">
-    //            <div v-on:click="selectMovie((item.中文名稱))">
-
-    //                <a :href="item.url">
-    //                    <img :src="item.圖片網址">
-    //                </a>
-    //                <h1>{{item.中文名稱}}</h1>
-    //            </div>
-
-    //        </div>
-    //    </div>
-    //    <h1 class="movieClass">音樂/歌舞/歷史/傳記/紀錄片</h1>
-    //    <div class="slider responsive">
-    //        <div v-for="item in others" class="book">
-    //            <div v-on:click="selectMovie((item.中文名稱))">
-
-    //                <a :href="item.url">
-    //                    <img :src="item.圖片網址">
-    //                </a>
-    //                <h1>{{item.中文名稱}}</h1>
-    //            </div>
-
-    //        </div>
-    //    </div>
-    //    </div>
-    //</div>
-
-    //                        `,
+   
     mounted() {
 
-        // then() 的傳回值是 Promise 物件
-        // jQuery
-        // $.getJSON('bookData.json').then(function(res){})
-        // $.getJSON('bookData.json').then(res =>  console.log(res))
-        //$.getJSON('bookData.json').then(res => this.books = res)
-        // Axios.js
-        //axios.get('movie.json').then(res => console.log(res))
-        //axios.get('bookData.json').then(res =>  console.log(res.data))
-
-        //axios.get('movie.json')
-        //    .then(function(res) {
-        //        console.log(res)
-        //        this.books=res.data.Data
-        //    });
-
-        // Fetch API
-        // fetch('bookData.json').then(res =>  console.log(res))
-        // fetch('bookData.json').then(res =>  console.log(res.json()))
-        //    fetch('bookData.json').then(res =>  res.json()).then(res => this.books = res)
+     
         this.showMovies();
     },
     created() {
@@ -290,7 +186,7 @@
            
             if (this.search.length > 0) {
                 for (var i = 0; i <= this.searchAll.length; i++) {
-                    if (search.test(this.searchAll[i].中文名稱)) {
+                    if (search.test(this.searchAll[i].中文名稱) || search.test(this.searchAll[i].英文名稱)) {
                         this.isSearch.push(this.searchAll[i]);
                     }
 
