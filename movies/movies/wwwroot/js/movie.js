@@ -25,10 +25,11 @@
         this.showMovies();
     },
     created() {
+        //每秒更新一次時間
         this.nowTimer = setInterval(this.gettime, 1000);
     },
     async beforeUpdate() {
-
+        //電影輪播牆
         $(function () {
             $(".cityresponsive").slick({
                 dots: false,
@@ -92,13 +93,14 @@
             var history = new RegExp("歷史/傳記");
             var crime = new RegExp("犯罪");
             var fantasy = new RegExp("奇幻");
-
+            //抓取電影JSON檔案
             axios.get('20221004toCCV3.json')
                 .then((res) => {
-
+                    
                     for (var i = 0; i <= res.data.Data.length; i++) {
                         this.searchAll.push(res.data.Data[i]);
                     }
+                    //顯示選擇的縣市
                     if (this.selectCitys == "全部") {
 
                         for (var i = 0; i <= res.data.Data.length; i++) {
@@ -183,7 +185,7 @@
 
             var search = new RegExp(this.search);
 
-           
+           //模糊搜尋電影名稱
             if (this.search.length > 0) {
                 for (var i = 0; i <= this.searchAll.length; i++) {
                     if (search.test(this.searchAll[i].中文名稱) || search.test(this.searchAll[i].英文名稱)) {

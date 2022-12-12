@@ -1,26 +1,28 @@
 ﻿
-
+<!--引入CSS檔案-->
 <head>
     <link rel="stylesheet" href="~/css/movie.css" asp-append-version="true" />
 </head>
 
+<!--首頁GIF動圖-->
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <img class="rotate-in-2-bck-cw" src="@Href("~/images/movie3.gif")" style="width:100%;height:auto;" alt="">
     </div>
 </div>
 
+<!--電影資料-->
 <div id="app" class="container">
-               
+   <!--搜尋片名-->            
  請輸入片名：<input type="text" v-model="search" v-on:keyup="searchNow()" />
-
+ <!--顯示今日電影時刻-->
     <h6 class="time tracking-in-contract-bck">
         今日電影時刻：
         <br />
         {{nowDate}}
     </h6>
 
-    <!-- Modal -->
+    <!-- Modal 電影詳細資料-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -205,6 +207,8 @@
             </div>
         </div>
     </div>
+
+    <!-- 顯示電影種類並輪播顯示-->
     <div class="movies" v-if="!search">
         <h1 class="movieClass fade-in-left">動畫/冒險/奇幻</h1>
         <div class=" responsive fade-in-left">
@@ -301,6 +305,7 @@
         </div>
 </div>
 
+<!--引入JS檔案-->
 @section Scripts{
 
            <script src="~/js/movie.js" asp-append-version="true"></script>
