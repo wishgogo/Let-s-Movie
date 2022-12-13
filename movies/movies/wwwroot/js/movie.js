@@ -94,7 +94,7 @@
             var crime = new RegExp("犯罪");
             var fantasy = new RegExp("奇幻");
             //抓取電影JSON檔案
-            axios.get('20221004toCCV3.json')
+            axios.get('movielist.json')
                 .then((res) => {
                     
                     for (var i = 0; i <= res.data.Data.length; i++) {
